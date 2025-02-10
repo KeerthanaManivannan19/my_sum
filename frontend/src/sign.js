@@ -2,14 +2,19 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Used for navigation
 import API from "./api"; // Import Axios instance
 
+
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  //const [loading, setLoading] = useState(false);
   const navigate = useNavigate(); // Redirect function
+  const [showPassword, setShowPassword] = useState(false); 
 
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent form reload
+    //setLoading(true); // Start loading
+    setError(""); // Clear previous error messages
 
     try {
       const response = await API.post("/login/", {
@@ -26,6 +31,8 @@ function Login() {
     } catch (error) {
       setError("Invalid username or password");
     }
+
+    //setLoading(false); 
   };
 
   return (
@@ -43,12 +50,27 @@ function Login() {
         </div>
         <div>
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          
+          <span
+            onClick={() => setShowPassword(!showPassword)}
+            style={{
+              position: "absolute",
+              right: "40%",
+              left:"60%",
+              top: "33%",
+              transform: "translateY(-50%)",
+              cursor: "pointer",
+              color: "blue"
+            }}
+          >
+            {showPassword ? "👁️" : "🙈"}
+          </span>
         </div>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <button type="submit">Login</button>

@@ -3,6 +3,8 @@ import SignIn from "./sign"; // Updated path
 import SignUp from "./SignUp"; // Updated path
 import Summarization from "./Summarization"; // Updated path
 import React from "react";
+import "./App.css";
+
 
 const PrivateRoute = ({ children }) => {
   return localStorage.getItem("access_token") ? children : <Navigate to="/" />;
