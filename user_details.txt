@@ -18,9 +18,3 @@ for user in users:
 
 
 
-test test@example.com -123
-keer keer@gmail.com
-km km@gmail.com
-killi killi@gmail.com
-keerthana01 keerthanamanivannan804@gmail.com -1234@Abcd
-kouthaman koutha22@gmail.com Abcd@1234
