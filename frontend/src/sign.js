@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Used for navigation
 import API from "./api"; // Import Axios instance
 
@@ -10,6 +10,18 @@ function Login() {
   //const [loading, setLoading] = useState(false);
   const navigate = useNavigate(); // Redirect function
   const [showPassword, setShowPassword] = useState(false); 
+
+  // Clear username and password on page load/refresh
+  useEffect(() => {
+    document.title = "Login - Summarization App";
+    setUsername("");
+    setPassword("");
+    localStorage.removeItem("username");
+    localStorage.removeItem("password");
+    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("password");
+  }, []);
+  
 
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent form reload
@@ -27,7 +39,7 @@ function Login() {
 
       API.defaults.headers["Authorization"] = `Bearer ${response.data.access}`;
 
-      navigate("/Summarization"); // Redirect to Home page
+      navigate("/Home"); // Redirect to Home page
     } catch (error) {
       setError("Invalid username or password");
     }
@@ -45,6 +57,7 @@ function Login() {
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            autoComplete="off"
             required
           />
         </div>
@@ -54,6 +67,7 @@ function Login() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            autoComplete="off"
             required
           />
           
@@ -84,6 +98,15 @@ function Login() {
           Sign Up
         </span>
       </p>
+      <p>
+  <span
+    style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }}
+    onClick={() => navigate("/forgot-password")}
+  >
+    Forgot Password?
+  </span>
+</p>
+
     </div>
   );
 }

@@ -30,6 +30,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -65,6 +66,10 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+
+     "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",  # ✅ Allow public access unless specified otherwise
+    ],
 }
 
 ROOT_URLCONF = 'backend.urls'
@@ -154,4 +159,12 @@ SIMPLE_JWT = {
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
     'TOKEN_TYPE_CLAIM': 'token_type',
 }
+
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "keerthanamanivannan804@gmail.com"  # Your Gmail address
+EMAIL_HOST_PASSWORD = "mpfk cmli nmvv mlst"  # Use an App Password, NOT your real password
 

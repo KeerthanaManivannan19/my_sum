@@ -2,13 +2,21 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "./api";
 
-const Summarization = () => {
+const Points = () => {
   const [text, setText] = useState("");
-  const [wordCount, setWordCount] = useState("");
-  const [summary, setSummary] = useState("");
+ 
+  const [summary_points, setSummary_points] = useState("");
   const [loading, setLoading] = useState(false); // Loading state
   const navigate = useNavigate();
   const [model, setModel] = useState("deepseek"); // Default model
+
+  const formatText = (inputText) => {
+    return inputText
+      .replace(/(\bI{1,3}|IV|V)\./g, "\n$1.") // Ensure Roman numerals start on a new line
+      .replace(/\*/g, "\n*"); // Ensure bullet points are on a new line
+  };
+
+  
 
   const refreshToken = async () => {
     try {
@@ -78,15 +86,17 @@ const Summarization = () => {
     let token = localStorage.getItem("access_token");
 
     try {
-      const minLength = Math.min(100, Math.max(20, parseFloat(wordCount) || 20));
+     
 
       let response = await API.post(
-        "summarize/",  // Backend will now handle model selection
-        { text, min_length: minLength, model },
+        "summarize_points/",  // Backend will now handle model selection
+        { text, model },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      setSummary(response.data.summary);
+      const formattedSummary = formatText(response.data.summary_points);
+
+      setSummary_points(formattedSummary);
     } catch (err) {
       if (err.response && err.response.status === 401) {
         // Token expired → Refresh token
@@ -94,11 +104,12 @@ const Summarization = () => {
         if (newToken) {
           try {
             let response = await API.post(
-              "summarize/",
-              { text, min_length: Math.min(100, Math.max(20, parseFloat(wordCount) || 20)), model },
+              "summarize_points/",
+              { text, model },
               { headers: { Authorization: `Bearer ${newToken}` } }
             );
-            setSummary(response.data.summary);
+            const formattedSummary = formatText(response.data.summary_points);
+            setSummary_points(formattedSummary);
           } catch (error) {
             alert("Error generating summary. Please check input.");
           }
@@ -113,7 +124,7 @@ const Summarization = () => {
  
   const handleTextChange = (e) => {
     setText(e.target.value);
-    setSummary(""); // Ensures summary is cleared on any text change
+    setSummary_points(""); // Ensures summary is cleared on any text change
   }; 
     
    
@@ -127,7 +138,7 @@ const Summarization = () => {
     <div>
       <h2>Text Summarization</h2>
       <textarea placeholder="Enter text..." value={text} onChange={handleTextChange} />
-      <input type="number" placeholder="Reduced Percentage" value={wordCount} onChange={(e) => setWordCount(e.target.value)} />
+      
       <select value={model} onChange={(e) => setModel(e.target.value)}>
         <option value="deepseek">DeepSeek</option>
         <option value="Gemini">Gemini</option>
@@ -136,9 +147,11 @@ const Summarization = () => {
       </select>
       <button onClick={handleSummarize} disabled={loading}> {loading ? "Summarizing..." : "Summarize"}</button>
       <button onClick={handleLogout}>Sign Out</button>
-      {summary && <p><strong>Summary:</strong> {summary}</p>}
+      {summary_points && (<pre style={{ whiteSpace: "pre-wrap" }}>
+          <strong>Summary:</strong> {summary_points}
+        </pre>)}
     </div>
   );
 };
 
-export default Summarization;
+export default Points;
