@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Used for navigation
 import API from "./api"; // Import Axios instance
+import "./App1.css";
 
 
 function Login() {

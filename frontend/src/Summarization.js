@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "./api";
+import "./App1.css";
 
 const Summarization = () => {
   const [text, setText] = useState("");
@@ -8,7 +9,7 @@ const Summarization = () => {
   const [summary, setSummary] = useState("");
   const [loading, setLoading] = useState(false); // Loading state
   const navigate = useNavigate();
-  const [model, setModel] = useState("deepseek"); // Default model
+ 
 
   const refreshToken = async () => {
     try {
@@ -82,7 +83,7 @@ const Summarization = () => {
 
       let response = await API.post(
         "summarize/",  // Backend will now handle model selection
-        { text, min_length: minLength, model },
+        { text, min_length: minLength },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -95,7 +96,7 @@ const Summarization = () => {
           try {
             let response = await API.post(
               "summarize/",
-              { text, min_length: Math.min(100, Math.max(20, parseFloat(wordCount) || 20)), model },
+              { text, min_length: Math.min(100, Math.max(20, parseFloat(wordCount) || 20)) },
               { headers: { Authorization: `Bearer ${newToken}` } }
             );
             setSummary(response.data.summary);
@@ -128,12 +129,7 @@ const Summarization = () => {
       <h2>Text Summarization</h2>
       <textarea placeholder="Enter text..." value={text} onChange={handleTextChange} />
       <input type="number" placeholder="Reduced Percentage" value={wordCount} onChange={(e) => setWordCount(e.target.value)} />
-      <select value={model} onChange={(e) => setModel(e.target.value)}>
-        <option value="deepseek">DeepSeek</option>
-        <option value="Gemini">Gemini</option>
-        <option value="Llama">Llama</option>
-        
-      </select>
+      
       <button onClick={handleSummarize} disabled={loading}> {loading ? "Summarizing..." : "Summarize"}</button>
       <button onClick={handleLogout}>Sign Out</button>
       {summary && <p><strong>Summary:</strong> {summary}</p>}

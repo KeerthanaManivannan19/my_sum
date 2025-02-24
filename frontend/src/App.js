@@ -5,9 +5,10 @@ import Summarization from "./Summarization"; // Updated path
 import React from "react";
 import ForgotPassword from "./ForgotPassword"; // Import the new component
 import ResetPassword from "./ResetPassword";
-import "./App.css";
 import Points from "./points"
 import Home from "./Home";
+import FileUpload from './FileUpload';
+import Chatbot from './Chatbot';
 
 
 const PrivateRoute = ({ children }) => {
@@ -18,13 +19,15 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/Home" element={<Home />} />
+        <Route path="/Home" element={<PrivateRoute><Home /></PrivateRoute>} />
         <Route path="/" element={<SignIn />} />
         <Route path="/Signup" element={<SignUp />} />
         <Route path="/Summarization" element={<PrivateRoute><Summarization /></PrivateRoute>} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/ResetPassword/:uidb64/:token/" element={<ResetPassword />} />
         <Route path="/points" element={<PrivateRoute><Points /></PrivateRoute>} />
+        <Route path="/FileUpload" element={<PrivateRoute><FileUpload /></PrivateRoute>} />
+        <Route path="/Chatbot" element={<PrivateRoute><Chatbot /></PrivateRoute>} />
       </Routes>
     </Router>
   );

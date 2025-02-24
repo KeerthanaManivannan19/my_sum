@@ -8,7 +8,7 @@ const Points = () => {
   const [summary_points, setSummary_points] = useState("");
   const [loading, setLoading] = useState(false); // Loading state
   const navigate = useNavigate();
-  const [model, setModel] = useState("deepseek"); // Default model
+  
 
   const formatText = (inputText) => {
     return inputText
@@ -90,7 +90,7 @@ const Points = () => {
 
       let response = await API.post(
         "summarize_points/",  // Backend will now handle model selection
-        { text, model },
+        { text},
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -105,7 +105,7 @@ const Points = () => {
           try {
             let response = await API.post(
               "summarize_points/",
-              { text, model },
+              { text},
               { headers: { Authorization: `Bearer ${newToken}` } }
             );
             const formattedSummary = formatText(response.data.summary_points);
@@ -139,12 +139,7 @@ const Points = () => {
       <h2>Text Summarization</h2>
       <textarea placeholder="Enter text..." value={text} onChange={handleTextChange} />
       
-      <select value={model} onChange={(e) => setModel(e.target.value)}>
-        <option value="deepseek">DeepSeek</option>
-        <option value="Gemini">Gemini</option>
-        <option value="Llama">Llama</option>
-        
-      </select>
+      
       <button onClick={handleSummarize} disabled={loading}> {loading ? "Summarizing..." : "Summarize"}</button>
       <button onClick={handleLogout}>Sign Out</button>
       {summary_points && (<pre style={{ whiteSpace: "pre-wrap" }}>

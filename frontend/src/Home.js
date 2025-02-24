@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "./App.css";
+import "./Homepage.css";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -15,7 +15,9 @@ const Home = () => {
       <h1>Choose Summarization Type</h1>
       <div className="home-buttons">
         <button onClick={() => navigate("/Summarization")}>Summarization</button>
-        <button onClick={() => navigate("/points")}>Importent</button>
+        <button onClick={() => navigate("/points")}>Summarization as Points</button>
+        
+
       </div>
       <button onClick={handleLogout} className="logout-btn">Sign Out</button>
     </div>
