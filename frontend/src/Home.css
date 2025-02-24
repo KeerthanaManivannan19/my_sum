@@ -1,0 +1,146 @@
+/* General Container */
+/* General Container */
+.home-container {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+  }
+  
+  /* Navigation Bar */
+  .navbar {
+    display: flex;
+    justify-content: center; /* Center everything */
+    align-items: center;
+    background-color: #007bff;
+    padding: 15px 20px;
+    color: white;
+    position: relative; /* Ensure absolute positioning for sign-out button */
+  }
+  
+  /* Center the title properly */
+  .nav-title {
+    font-size: 24px;
+    font-weight: bold;
+    flex-grow: 1; /* Allows title to be centered */
+    text-align: center; /* Ensures centering */
+  }
+  
+  /* Sign Out Button */
+  .logout-btn {
+    position: absolute;
+    right: 20px; /* Keep it aligned to the right */
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .logout-btn:hover {
+    background-color: #c82333;
+  }
+  
+  /* Content Section */
+  .content {
+    margin-top: 30px;
+  }
+  
+  .home-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  .home-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+  
+  .summarization-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+  }
+  
+  .summarization-btn:hover {
+    background-color: #218838;
+  }
+  
+  
+  .summarization-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+  }
+  
+  .summarization-btn:hover {
+    background-color: #218838;
+  }
+  
+  /* Importance Section */
+  
+.importance-section {
+    margin-top: 10px; /* Reduced gap */
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Title */
+  .importance-title {
+    font-size: 24px;
+    margin-bottom: 5px; /* Less space below the title */
+    font-weight: bold;
+  }
+  
+  /* Scrollable Content */
+  .importance-text {
+    font-size: 18px;
+    color: black;
+    text-align: justify;
+    line-height: 1.6;
+    padding: 15px;
+    height: 250px; /* Keeps it visually compact */
+    overflow-y: auto; /* Enable vertical scrollbar */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 5px;
+    background-color: #fff;
+  }
+  
+  /* Scrollbar Styling */
+  .importance-text::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .importance-text::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .importance-text::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+  }
+  
+  .importance-text::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  

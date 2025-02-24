@@ -1,14 +1,15 @@
 import React, { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Used for navigation
 import API from "./api"; // Import Axios instance
-import "./App1.css";
+import "./Login.css"; // Import the new CSS file
+
 
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  //const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate(); // Redirect function
   const [showPassword, setShowPassword] = useState(false); 
 
@@ -26,7 +27,7 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent form reload
-    //setLoading(true); // Start loading
+    setLoading(true); // Start loading
     setError(""); // Clear previous error messages
 
     try {
@@ -45,19 +46,20 @@ function Login() {
       setError("Invalid username or password");
     }
 
-    //setLoading(false); 
+    setLoading(false); 
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h2>Login</h2>
+    <div className="login-container">
+      <h2 className="login-title">Login</h2>
       <form onSubmit={handleLogin}>
-        <div>
+        <div className="input-container">
           <input
             type="text"
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            className="login-input"
             autoComplete="off"
             required
           />
@@ -68,32 +70,28 @@ function Login() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className="login-input"
             autoComplete="off"
             required
           />
           
           <span
+            className="password-toggle"
             onClick={() => setShowPassword(!showPassword)}
-            style={{
-              position: "absolute",
-              right: "40%",
-              left:"60%",
-              top: "33%",
-              transform: "translateY(-50%)",
-              cursor: "pointer",
-              color: "blue"
-            }}
+            
           >
             {showPassword ? "👁️" : "🙈"}
           </span>
         </div>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit">Login</button>
+
+        {error && <p className="login-error">{error}</p>}
+        
+        <button type="submit" className="login-button">Login</button>
       </form>
       <p>
         Don't have an account?{" "}
         <span
-          style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }}
+          className="auth-link"
           onClick={() => navigate("/SignUp")}
         >
           Sign Up
@@ -101,7 +99,7 @@ function Login() {
       </p>
       <p>
   <span
-    style={{ color: "blue", cursor: "pointer", textDecoration: "underline" }}
+    className="auth-link"
     onClick={() => navigate("/forgot-password")}
   >
     Forgot Password?
